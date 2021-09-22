@@ -8,7 +8,7 @@ contract SimpleStorage {
     storedData = x;
   }
 
-  function get() public pure returns (uint) {
-    return 5;
+  function get() public view returns (uint) {
+    return storedData;
   }
 }
