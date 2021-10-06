@@ -1,0 +1,52 @@
+.entire {
+  padding: 4% 10%;
+}
+
+.rows {
+  margin-bottom: 2%;
+}
+
+.header {
+  font-weight: 700;
+}
+
+.btn {
+  background-color: rgb(90, 171, 97);
+  margin-left: 20%;
+  color: white;
+}
+
+.radio {
+  padding: 0.5% 1% 0 0%;
+}
+
+.dateField {
+  padding: 0.5% 1% 0 5%;
+}
+
+.active {
+  color: #006400;
+  font-weight: 800;
+}
+
+.pending {
+  color: #0275d8;
+  font-weight: 800;
+}
+
+.paid {
+  color: #f0ad4e;
+  font-weight: 800;
+}
+
+.timed {
+  color: #d9534f;
+  font-weight: 800;
+}
+
+.text {
+  font-weight: 500;
+  font-size: medium;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}

@@ -1,0 +1,115 @@
+.backgroundImage {
+  background-image: url(../assets/bg.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  position: sticky;
+  display: block;
+  height: 670px;
+  background-size: cover;
+  top: 0;
+  left: 0;
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.title {
+  position: relative;
+  /* z-index: 10; */
+  top: 48%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  text-align: center;
+}
+
+.header {
+  margin: 0;
+  font-size: 45px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  /* white-space: nowrap; */
+}
+
+.text {
+  margin: 0;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: 7px;
+}
+
+.details {
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: #006400;
+}
+
+.btn {
+  position: relative;
+  top: 42%;
+  left: 27%;
+  background-color: rgb(90, 171, 97);
+  border-radius: 66px 66px 66px 66px;
+  width: 200px;
+  border: none;
+  display: block;
+  /* margin: auto; */
+}
+.btn:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -7px;
+  bottom: -7px;
+  left: -7px;
+  right: -7px;
+  border-radius: 66px;
+  border: 3px solid rgb(90, 171, 97);
+}
+.btn:hover {
+  background-color: #228b22;
+}
+
+@media only screen and (max-width: 550px) {
+  .header {
+    font-size: 35px;
+  }
+
+  .text {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  .title {
+    top: 25%;
+  }
+
+  .header {
+    font-size: 35px;
+  }
+
+  .text {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .btn {
+    top: 42%;
+    width: 150px;
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 750px) and (max-width: 1400px) and (min-height: 800px) {
+  .title {
+    top: 38%;
+  }
+  .btn {
+    top: 53%;
+  }
+}

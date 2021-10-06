@@ -1,0 +1,36 @@
+.entire {
+  padding: 4% 10%;
+}
+
+.listHeader {
+  background-color: gainsboro;
+}
+
+.list {
+  border-left: none;
+  border-right: none;
+}
+
+.btn {
+  background-color: rgb(90, 171, 97);
+  margin-left: 20%;
+  color: white;
+}
+
+.active {
+  font-weight: 600;
+  color: #4bb543;
+}
+
+.inactive {
+  font-weight: 900;
+  color: gray;
+}
+
+.radio {
+  padding: 0.5% 1% 0 6%;
+}
+
+.header {
+  font-weight: 700;
+}

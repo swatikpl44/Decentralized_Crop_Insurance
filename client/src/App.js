@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import PolicyContract from "./contracts/Policy.json";
 import getWeb3 from "./getWeb3";
 import BlockchainContext from "./Contexts/BlockchainContext";
-import HomePage from "./Components/homePage";
-
+import HomePage from "./Routes/homePage";
+import CreatePolicy from "./Routes/createPolicy";
+import ClaimPolicy from "./Routes/claimPolicy";
+import AllPolicy from "./Routes/allPolicies";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
@@ -49,11 +59,19 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <BlockchainContext.Provider value={{ web3, accounts, contract }}>
-        <HomePage />
-      </BlockchainContext.Provider>
-    </div>
+    <BlockchainContext.Provider value={{ web3, accounts, contract }}>
+      <div className="App">
+        <Router>
+          <ToastContainer />
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/create" exact component={CreatePolicy} />
+            <Route path="/allPolicies" exact component={AllPolicy} />
+            <Route path="/claim" exact component={ClaimPolicy} />
+          </Switch>
+        </Router>
+      </div>
+    </BlockchainContext.Provider>
   );
 }
 

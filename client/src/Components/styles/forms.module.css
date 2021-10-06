@@ -1,0 +1,29 @@
+.bgImage {
+  background-image: url(../assets/agri.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.form {
+  padding: 0 10%;
+}
+
+.heading {
+  font-weight: 300;
+}
+
+.btn {
+  background-color: rgb(90, 171, 97);
+}
+
+.entire {
+  padding: 4% 10%;
+}
+
+.label {
+  text-align: right !important;
+}
+
+.radio {
+  padding-right: 10%;
+}
