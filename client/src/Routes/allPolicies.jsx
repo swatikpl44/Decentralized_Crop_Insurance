@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import NavBar from "../Components/navbarNotLanding";
 import styles from "../Components/styles/allPolicies.module.css";
 import BlockchainContext from "../Contexts/BlockchainContext";
+import { toast } from "react-toastify";
 
 const policyKeys = ["policyId", "user", "coverageAmount", "state"];
 
 const AllPolicy = () => {
   const [allPolicies, setAllPolicies] = useState([]);
   const [policyId, setPolicyId] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const blockchainContext = useContext(BlockchainContext);
   const { web3, accounts, contract } = blockchainContext;
@@ -16,7 +18,7 @@ const AllPolicy = () => {
     const load = async () => {
       const policies = await contract.methods.viewAllPolicies().call();
       setAllPolicies(policies);
-      console.log(allPolicies);
+      //console.log(allPolicies);
     };
     if (
       typeof web3 !== "undefined" &&
@@ -25,19 +27,35 @@ const AllPolicy = () => {
     ) {
       load();
     }
-  }, [web3, accounts, contract]);
+  }, [web3, accounts, contract, allPolicies]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (policyId >= allPolicies.length) {
+      toast.error("Sorry, this policy ID doesn't exist.");
+      return;
+    }
+
     const amount = allPolicies[policyId][policyKeys[2]];
 
-    await contract.methods.coverPolicy(policyId).send({
-      from: accounts[0],
-      to: contract,
-      value: amount,
-    });
-    console.log("Covered");
+    try {
+      setLoader(true);
+      await contract.methods.coverPolicy(policyId).send({
+        from: accounts[0],
+        to: contract,
+        value: amount,
+      });
+      toast.success("Policy Covered.");
+    } catch (err) {
+      if (err.message) {
+        toast.error(
+          "Either policy is already covered or doesn't exist for you to cover."
+        );
+      } else toast.error("Something went wrong");
+    }
+    setLoader(false);
+    setPolicyId("");
   };
 
   return (
@@ -68,7 +86,11 @@ const AllPolicy = () => {
             <input
               type="text"
               className="form-control"
-              value={policyId === "" ? 0 : allPolicies[policyId][policyKeys[2]]}
+              value={
+                policyId === "" || policyId >= allPolicies.length
+                  ? 0
+                  : allPolicies[policyId][policyKeys[2]]
+              }
               id="coverage"
               placeholder="0"
               disabled
@@ -77,8 +99,9 @@ const AllPolicy = () => {
               <button
                 className={`btn btn-block text-uppercase fw-bold mb-2 ${styles.btn}`}
                 type="submit"
+                disabled={loader}
               >
-                Cover
+                {loader ? <i className="fa fa-refresh fa-spin" /> : "Cover"}
               </button>
             </div>
           </div>
@@ -104,7 +127,6 @@ const AllPolicy = () => {
             </div>
           </li>
           {allPolicies &&
-            allPolicies.length &&
             allPolicies
               .map((val, index) => (
                 <li className={`list-group-item ${styles.list}`} key={index}>

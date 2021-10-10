@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import NavBar from "../Components/navbarNotLanding";
 import styles from "../Components/styles/forms.module.css";
 import BlockchainContext from "../Contexts/BlockchainContext";
+import { toast } from "react-toastify";
 
 const CreatePolicy = () => {
   const [rabi, setRabi] = useState([]);
@@ -11,6 +11,7 @@ const CreatePolicy = () => {
   const [locationn, setLocationn] = useState("");
   const [crop, setCrop] = useState("");
   const [type, setType] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const blockchainContext = useContext(BlockchainContext);
   const { web3, accounts, contract } = blockchainContext;
@@ -46,12 +47,26 @@ const CreatePolicy = () => {
 
     const forFlood = type === "flood" ? true : false;
     const cropId = crop === "rabi" ? 0 : 1;
-    await contract.methods.newPolicy(area, locationn, forFlood, cropId).send({
-      from: accounts[0],
-      to: contract,
-      value: amount,
-    });
-    console.log("Created");
+    try {
+      setLoader(true);
+      await contract.methods.newPolicy(area, locationn, forFlood, cropId).send({
+        from: accounts[0],
+        to: contract,
+        value: amount,
+      });
+      toast.success("Policy Created.");
+    } catch (err) {
+      if (err.message) {
+        toast.error("Policy Not Created. Please try again.");
+      } else toast.error("Something went wrong");
+    }
+    setLoader(false);
+    setRabi([]);
+    setKharif([]);
+    setArea("");
+    setCrop("");
+    setType("");
+    setLocationn("");
   };
 
   return (
@@ -109,6 +124,7 @@ const CreatePolicy = () => {
                     type="radio"
                     value="rabi"
                     id="rabi"
+                    checked={crop === "rabi"}
                     onChange={(e) => setCrop(e.target.value)}
                     name="crop"
                     required={true}
@@ -122,6 +138,7 @@ const CreatePolicy = () => {
                     type="radio"
                     value="kharif"
                     id="kharif"
+                    checked={crop === "kharif"}
                     onChange={(e) => setCrop(e.target.value)}
                     name="crop"
                     required={true}
@@ -144,6 +161,7 @@ const CreatePolicy = () => {
                     type="radio"
                     value="flood"
                     id="flood"
+                    checked={type === "flood"}
                     onChange={(e) => setType(e.target.value)}
                     name="type"
                     required={true}
@@ -157,6 +175,7 @@ const CreatePolicy = () => {
                     type="radio"
                     value="drought"
                     id="drought"
+                    checked={type === "drought"}
                     onChange={(e) => setType(e.target.value)}
                     name="type"
                     required={true}
@@ -190,8 +209,13 @@ const CreatePolicy = () => {
                   <button
                     className={`btn btn-lg btn-block text-uppercase fw-bold mb-2 ${styles.btn}`}
                     type="submit"
+                    disabled={loader}
                   >
-                    Create
+                    {loader ? (
+                      <i className="fa fa-refresh fa-spin" />
+                    ) : (
+                      "Create"
+                    )}
                   </button>
                 </div>
               </form>

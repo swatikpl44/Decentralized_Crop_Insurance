@@ -41,6 +41,9 @@ const Navbar = (props) => {
           {/* <Link to="/admin/login">loginPage</Link> */}
           <ul className={"navbar-nav "} style={{ margin: "0 0 0 auto" }}>
             <li style={{ float: "right" }}>
+              <Link to="/create">CREATE POLICY</Link>
+            </li>
+            <li style={{ float: "right" }}>
               <Link to="/claim">CLAIM INSURANCE</Link>
             </li>
             <li style={{ float: "right" }}>

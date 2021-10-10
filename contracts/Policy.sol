@@ -89,6 +89,8 @@ contract Policy{
     function coverPolicy (uint policyId) external payable {
         
         policy storage p = policies[policyId];
+        require(policies[policyId].user != msg.sender, "You can't cover your own policy.");
+        require(policies[policyId].state == policyState.Pending, "Policy Already Covered");
         require(msg.value == p.coverageAmount, "Please cover with the exact required amount");
         
         (bool sent,) = address(this).call{value : msg.value}("");
@@ -117,6 +119,7 @@ contract Policy{
     
     //Claiming policy
     function claimPolicy(uint policyId) public {
+        require(policyId < policies.length, "Policy doesn't exist");
         require(msg.sender == policies[policyId].user, "User Not Authorized");
         
         require(policies[policyId].state == policyState.Active, "Policy Not Activated");

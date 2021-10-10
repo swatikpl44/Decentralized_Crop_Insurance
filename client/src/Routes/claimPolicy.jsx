@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import NavBar from "../Components/navbarNotLanding";
 import styles from "../Components/styles/claimPolicy.module.css";
 import BlockchainContext from "../Contexts/BlockchainContext";
+import { toast } from "react-toastify";
 
 const policyKeys = [
   "policyId",
@@ -20,6 +21,7 @@ const ClaimPolicy = () => {
   const [calamityDate, setCalamityDate] = useState("");
   const [myPolicies, setMyPolicies] = useState([]);
   const [pStates, setPStates] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const blockchainContext = useContext(BlockchainContext);
   const { web3, accounts, contract } = blockchainContext;
@@ -29,10 +31,8 @@ const ClaimPolicy = () => {
       const myPolicy = await contract.methods
         .viewMyPolicies(accounts[0])
         .call();
-      const bal = await contract.methods.balanceOf().call();
 
       setMyPolicies(myPolicy);
-      //console.log(allPolicies);
     };
 
     const findState = async () => {
@@ -65,10 +65,22 @@ const ClaimPolicy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const timestamp = Date.now();
-
-    await contract.methods.claimPolicy(policyId).send({ from: accounts[0] });
-    console.log("Claimed");
+    try {
+      setLoader(true);
+      await contract.methods.claimPolicy(policyId).send({ from: accounts[0] });
+      toast.success(
+        "Coverage amount has been transferred. Do check your balance."
+      );
+    } catch (err) {
+      if (err.message) {
+        toast.error(
+          "Transaction failed. Please note you can only claim an Active policy."
+        );
+      } else toast.error("Transaction denied by user. Process Failed!!");
+    }
+    setLoader(false);
+    setPolicyId("");
+    setCalamityDate("");
   };
 
   const cardsRow = () => {
@@ -312,20 +324,22 @@ const ClaimPolicy = () => {
               onChange={(e) => setCalamityDate(e.target.value)}
               id="date"
               placeholder="dd-mm-yyyy"
+              required={true}
             />
             <div>
               <button
                 className={`btn btn-block text-uppercase fw-bold mb-2 ${styles.btn}`}
                 type="submit"
+                disable={loader}
               >
-                Claim
+                {loader ? <i className="fa fa-refresh fa-spin" /> : "Claim"}
               </button>
             </div>
           </div>
         </form>
         <h4 className={`${styles.header}`}>My Policies : </h4>
         <br />
-        {myPolicies && myPolicies.length && cardsRow()}
+        {myPolicies && cardsRow()}
       </div>
     </React.Fragment>
   );
