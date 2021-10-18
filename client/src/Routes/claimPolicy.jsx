@@ -114,7 +114,8 @@ const ClaimPolicy = () => {
                   <span className={`${styles.text}`}>
                     {myPolicies[i][policyKeys[4]]}
                   </span>
-                  , Area :{" "}
+                  <br />
+                  Area :{" "}
                   <span className={`${styles.text}`}>
                     {myPolicies[i][policyKeys[2]]} hectares
                   </span>
@@ -177,9 +178,10 @@ const ClaimPolicy = () => {
                     <span className={`${styles.text}`}>
                       {myPolicies[i + 1][policyKeys[4]]}
                     </span>
-                    , Area :{" "}
+                    <br />
+                    Area :{" "}
                     <span className={`${styles.text}`}>
-                      {myPolicies[i + 1][policyKeys[2]]} acres
+                      {myPolicies[i + 1][policyKeys[2]]} hectares
                     </span>
                     <br />
                     Crop :{" "}
@@ -245,9 +247,10 @@ const ClaimPolicy = () => {
                     <span className={`${styles.text}`}>
                       {myPolicies[i + 2][policyKeys[4]]}
                     </span>
-                    , Area :{" "}
+                    <br />
+                    Area :{" "}
                     <span className={`${styles.text}`}>
-                      {myPolicies[i + 2][policyKeys[2]]} acres
+                      {myPolicies[i + 2][policyKeys[2]]} hectares
                     </span>
                     <br />
                     Crop :{" "}

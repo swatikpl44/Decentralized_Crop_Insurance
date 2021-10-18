@@ -116,7 +116,7 @@ const AllPolicy = () => {
                 <b>Policy Id</b>
               </div>
               <div className="col-sm-6 text-center">
-                <b>User Account Address</b>
+                <b>Farmer Account Address</b>
               </div>
               <div className="col-sm-2 text-center">
                 <b>Coverage Amount (in Finney)</b>
