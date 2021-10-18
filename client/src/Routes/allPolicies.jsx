@@ -37,7 +37,7 @@ const AllPolicy = () => {
       return;
     }
 
-    const amount = allPolicies[policyId][policyKeys[2]];
+    const amount = allPolicies[policyId][policyKeys[2]] * 1e15;
 
     try {
       setLoader(true);
@@ -81,7 +81,7 @@ const AllPolicy = () => {
               required={true}
             />
             <label className={`${styles.radio}`}>
-              Pay Coverage Amount (in wei) :{" "}
+              Pay Coverage Amount (in finney) :{" "}
             </label>
             <input
               type="text"
@@ -119,7 +119,7 @@ const AllPolicy = () => {
                 <b>User Account Address</b>
               </div>
               <div className="col-sm-2 text-center">
-                <b>Coverage Amount</b>
+                <b>Coverage Amount (in Finney)</b>
               </div>
               <div className="col-sm-2 text-center">
                 <b>Status</b>

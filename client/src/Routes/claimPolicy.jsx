@@ -116,7 +116,7 @@ const ClaimPolicy = () => {
                   </span>
                   , Area :{" "}
                   <span className={`${styles.text}`}>
-                    {myPolicies[i][policyKeys[2]]} acres
+                    {myPolicies[i][policyKeys[2]]} hectares
                   </span>
                   <br />
                   Crop :{" "}
@@ -140,12 +140,12 @@ const ClaimPolicy = () => {
                   Premium paid :{" "}
                   <span className={`${styles.text}`}>
                     {" "}
-                    {myPolicies[i][policyKeys[1]]}{" "}
+                    {myPolicies[i][policyKeys[1]]} finney
                   </span>{" "}
                   <br /> The maximum amount payable in the event of claim is{" "}
                   <span className={`${styles.text}`}>
                     {" "}
-                    {myPolicies[i][policyKeys[5]]}{" "}
+                    {myPolicies[i][policyKeys[5]]} finney
                   </span>
                 </p>
               </div>
@@ -207,12 +207,12 @@ const ClaimPolicy = () => {
                     Premium paid :{" "}
                     <span className={`${styles.text}`}>
                       {" "}
-                      {myPolicies[i + 1][policyKeys[1]]}{" "}
+                      {myPolicies[i + 1][policyKeys[1]]} finney
                     </span>{" "}
                     <br /> The maximum amount payable in the event of claim is{" "}
                     <span className={`${styles.text}`}>
                       {" "}
-                      {myPolicies[i + 1][policyKeys[5]]}{" "}
+                      {myPolicies[i + 1][policyKeys[5]]} finney
                     </span>
                   </p>
                 </div>
@@ -275,12 +275,12 @@ const ClaimPolicy = () => {
                     Premium paid :{" "}
                     <span className={`${styles.text}`}>
                       {" "}
-                      {myPolicies[i + 2][policyKeys[1]]}{" "}
+                      {myPolicies[i + 2][policyKeys[1]]} finney
                     </span>{" "}
                     <br /> The maximum amount payable in the event of claim is{" "}
                     <span className={`${styles.text}`}>
                       {" "}
-                      {myPolicies[i + 2][policyKeys[5]]}{" "}
+                      {myPolicies[i + 2][policyKeys[5]]} finney
                     </span>
                   </p>
                 </div>

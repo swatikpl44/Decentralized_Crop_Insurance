@@ -39,6 +39,7 @@ const CreatePolicy = () => {
 
     const amount =
       area *
+      1e15 *
       (crop === "rabi"
         ? rabi.premiumPerAcre
         : crop === "kharif"
@@ -100,7 +101,7 @@ const CreatePolicy = () => {
 
                 <div className="form-floating mb-3">
                   <label htmlFor="Area" className="form-label">
-                    Area :
+                    Area (in hectares):
                   </label>
                   <input
                     type="text"
@@ -187,7 +188,7 @@ const CreatePolicy = () => {
                 </div>
                 <div className="form-group form-inline">
                   <label className={`${styles.radio}`}>
-                    Premium to pay (in wei) :{" "}
+                    Premium to pay (in finney) :{" "}
                   </label>
                   <input
                     type="premium"

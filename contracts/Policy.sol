@@ -55,13 +55,13 @@ contract Policy{
     }
     
     constructor() public {
-        newCrop(0, "rabi", 1, 6, 7);
-        newCrop(1, "kharif", 2, 4, 10);
+        newCrop(0, "rabi", 1, 6, 40);
+        newCrop(1, "kharif", 2, 4, 60);
     }
     
     // Creating policy
     function newPolicy (uint area, string calldata location, bool forFlood, uint8 cropId) external payable{
-        require(msg.value == (cropTypes[cropId].premiumPerAcre * area), "Incorrect Premium Amount");
+        require(msg.value == (cropTypes[cropId].premiumPerAcre * area * 1e15), "Incorrect Premium Amount");
         
         (bool sent,) = address(this).call{value : msg.value}("");
         require(sent, "Transaction Failed");
@@ -91,7 +91,7 @@ contract Policy{
         policy storage p = policies[policyId];
         require(policies[policyId].user != msg.sender, "You can't cover your own policy.");
         require(policies[policyId].state == policyState.Pending, "Policy Already Covered");
-        require(msg.value == p.coverageAmount, "Please cover with the exact required amount");
+        require(msg.value == p.coverageAmount * 1e15, "Please cover with the exact required amount");
         
         (bool sent,) = address(this).call{value : msg.value}("");
         require(sent, "Transaction Failed");
@@ -147,7 +147,7 @@ contract Policy{
 
         //claimPolicyId = policyId;
         //makeRequest(location, date);
-        (bool sent,) = policies[policyId].user.call{value : policies[policyId].coverageAmount}("");
+        (bool sent,) = policies[policyId].user.call{value : policies[policyId].coverageAmount * 1e15}("");
         require(sent, "Transaction Failed");
         
         policies[policyId].state = policyState.PaidOut;
